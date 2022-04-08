@@ -11,7 +11,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    email     = forms.EmailField(
+    email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
                     "class": "form-control", 
@@ -19,7 +19,7 @@ class ContactForm(forms.Form):
                 }
             )
         )
-    content   = forms.CharField(
+    content = forms.CharField(
         widget=forms.Textarea(
             attrs={
                     "class": "form-control", 

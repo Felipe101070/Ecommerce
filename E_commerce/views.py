@@ -5,8 +5,8 @@ from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
-                    "title": "Home Page",
-                    "content": "Bem vindo a Home Page",
+                "title": "Home Page",
+                "content": "Bem vindo a Home Page",
               }
     if request.user.is_authenticated:
         context["premium_content"] = "Você é um usuário Premium"
@@ -14,17 +14,17 @@ def home_page(request):
 
 def about_page(request):
     context = {
-                    "title": "About Page",
-                    "content": "Bem vindo a About Page"
+                "title": "About Page",
+                "content": "Bem vindo a About Page"
               }
     return render(request, "about/view.html", context)
 
 def contact_page(request):
     contact_form = ContactForm(request.POST or None)
     context = {
-                    "title": "Contact Page",
-                    "content": "Bem vindo a Contact Page",
-                    "form": contact_form	
+                "title": "Contact Page",
+                "content": "Bem vindo a Contact Page",
+                "form": contact_form	
               }
     if contact_form.is_valid():
         print(contact_form.cleaned_data)
@@ -33,8 +33,8 @@ def contact_page(request):
 def login_page(request):
     form = LoginForm(request.POST or None)
     context = {
-                    "form": form
-              }
+                "form": form
+            }
     print("User logged in")
     #print(request.user.is_authenticated)
     if form.is_valid():
@@ -45,7 +45,7 @@ def login_page(request):
         print(user)
         #print(request.user.is_authenticated)
         if user is not None:
-            #print(request.user.is_authenticated)
+                #print(request.user.is_authenticated)
             login(request, user)
             print("Login válido")
             # Redireciona para uma página de sucesso.
@@ -59,7 +59,7 @@ User = get_user_model()
 def register_page(request):
     form = RegisterForm(request.POST or None)
     context = {
-                    "form": form
+                "form": form
               }
     if form.is_valid():
         print(form.cleaned_data)
