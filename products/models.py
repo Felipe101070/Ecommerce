@@ -39,7 +39,6 @@ class Product(models.Model): #product_category
     image       = models.ImageField(upload_to = 'products/', null = True, blank = True)
     featured    = models.BooleanField(default = False)
     active      = models.BooleanField(default = True)
-    categoria   = models.CharField(max_length=50, default = False)
     
     
     objects = ProductManager()
