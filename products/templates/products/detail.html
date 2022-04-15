@@ -1,7 +1,11 @@
-{{ object.title }} <br/>
-{{ object.price}} <br/>
-{{ object.description }} <br/>
-{% if object.image %}
-    <img src="{{object.image.url }}" class="img-fluid" />
+{% extends "base.html" %}
 
-{% endif %}
+{% block content %}
+    {{ object.title }} <br/>
+    {{ object.price}} <br/>
+    {{ object.description }} <br/>
+    {% if object.image %}
+        <img src="{{object.image.url }}" class="img-fluid" />
+
+    {% endif %}
+{% endblock content %}
