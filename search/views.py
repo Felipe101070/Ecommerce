@@ -3,7 +3,6 @@ from django.views.generic import ListView
 from products.models import Product
 
 class SearchProductView(ListView):
-    template_name = "products/list.html"
     template_name = "search/view.html"
 
     def get_context_data(self, *args, **kwargs):
