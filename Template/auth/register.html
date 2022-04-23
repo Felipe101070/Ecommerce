@@ -1,5 +1,8 @@
-<form method='POST'> 
-    {% csrf_token %}
-    {{ form }}
-    <button type='submit' class='btn btn-default'>Enviar</button>
-</form>
+{% extends "base.html" %} 
+{% block content %}
+    <form method='POST'> 
+        {% csrf_token %}
+        {{ form }}
+        <button type='submit' class='btn btn-default'>Enviar</button>
+    </form>
+{% endblock %}
