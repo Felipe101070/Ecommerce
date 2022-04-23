@@ -3,7 +3,7 @@
     {% if instance.image %}
         <a href="{{ instance.get_absolute_url }}">
             <img src="{{ instance.image.url }}" class="card-img-top" alt="...">
-        </a>    
+        </a> 
     {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{ instance.title|truncatewords:14 }}</h5>
