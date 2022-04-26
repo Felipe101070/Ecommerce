@@ -5,25 +5,25 @@ from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
-                "title": "Home Page",
-                "content": "Bem vindo a Home Page",
+                "title": "Stip Store",
+                "content": "Seja bem vindo a essa familia",
               }
     if request.user.is_authenticated:
-        context["premium_content"] = "Você é um usuário Premium"
+        context["premium_content"] = "Seja bem vindo a essa familia"
     return render(request, "home_page.html", context)
 
 def about_page(request):
     context = {
-                "title": "About Page",
-                "content": "Bem vindo a About Page"
+                "title": "Pagina Sobre",
+                "content": "Venha conhecer um pouco mais sobre nós!!!"
               }
     return render(request, "about/view.html", context)
 
 def contact_page(request):
     contact_form = ContactForm(request.POST or None)
     context = {
-                "title": "Contact Page",
-                "content": "Bem vindo a Contact Page",
+                "title": "Pagina de contato",
+                "content": "Bem vindo a nossa pagina de contato",
                 "form": contact_form
               }
     if contact_form.is_valid():
