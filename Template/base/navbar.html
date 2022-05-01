@@ -4,11 +4,11 @@
 {% url "login" as login_url %}
 {% url "register" as register_url %}
 {% url 'logout' as logout_url %}
+{% url 'cart:home' as cart_url %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class='container'>
     <a class="navbar-brand" href="{{ home_url }}">
-        <img src="logo"/>
         
         {% if nome_da_marca %} {{ nome_da_marca }} {% else %} C&oacute; StipStore {% endif %}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,16 +37,19 @@
                 <a class="nav-link" href="{{ register_url }}">Registrar-se</a>
             </li>
             {% endif %}
-            <li class="nav-item dropdown">
+            <li class="nav-item {% if request.path == cart_url %} active {% endif %}">
+                <a class="nav-link" href="{{ cart_url }}"><i class="fa fa-shopping-cart"></i></a>
+            </li>
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
+                  Dropdown link
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-              </li>
+              </li> -->
 
         </ul>
         {% include 'search/snippets/search-form.html' %}
