@@ -14,6 +14,7 @@ urlpatterns = [
 	path('about/', about_page, name="about"),
 	path('contact/', contact_page, name="contact"),
     path('cart/', cart_home, name='cart'),
+    path('cart/', include("carts.urls", namespace="cart")),
     path('login/', login_page, name="login"), 
     path('logout/', logout_page, name='logout'),
     path('register/', register_page, name="register"),
