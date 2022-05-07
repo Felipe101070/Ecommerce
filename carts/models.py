@@ -1,10 +1,15 @@
+from decimal import Decimal
 from django.conf import settings
 from django.db import models
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
 from django.db.models.signals import pre_save, post_save, m2m_changed
 
+>>>>>>> cart_model
+=======
+from django.db.models.signals import pre_save, post_save, m2m_changed
 >>>>>>> cart_model
 from products.models import Product
 
@@ -72,32 +77,30 @@ class Cart(models.Model):
 =======
     subtotal = models.DecimalField(default = 0.00, max_digits=100, decimal_places = 2)
     total = models.DecimalField(default = 0.00, max_digits=100, decimal_places = 2)
+    tax = models.DecimalField(default = 1.80, max_digits = 10, decimal_places = 2)
     updated = models.DateTimeField(auto_now = True)
     timestamp = models.DateTimeField(auto_now_add = True)
-    
     objects = CartManager()
 
     def __str__(self):
         return str(self.id)
     
-    
-
 def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
         products = instance.products.all() 
         total = 0 
         for product in products: 
-            total += product.price 
+            product.price *= product.quantity_bought 
+            total += product.price
         if instance.subtotal != total:
             instance.subtotal = total
             instance.save()
         
-
 m2m_changed.connect(m2m_changed_cart_receiver, sender = Cart.products.through)
     
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
     if instance.subtotal > 0:
-        instance.total = instance.subtotal + 10
+        instance.total = Decimal(instance.subtotal) * Decimal(instance.tax)
     else:
         instance.total = 0.00
 

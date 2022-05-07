@@ -7,7 +7,10 @@ def cart_home(request):
     return render(request, "carts/home.html", {})
 =======
 from django.shortcuts import render, redirect
-
+from accounts.forms import LoginForm, GuestForm
+from accounts.models import GuestEmail
+from billing.models import BillingProfile
+from orders.models import Order
 from products.models import Product
 from .models import Cart
 
@@ -28,6 +31,47 @@ def cart_update(request):
             cart_obj.products.remove(product_obj) 
         else: 
             cart_obj.products.add(product_obj)
+<<<<<<< HEAD
         #request.session['cart_items'] = cart_obj.products.count()
     return redirect("cart:home")
+>>>>>>> cart_model
+=======
+        request.session['cart_items'] = cart_obj.products.count()
+    return redirect("cart:home")
+
+def checkout_home(request):
+    #aqui a gente pega o carrinho
+    cart_obj, cart_created= Cart.objects.new_or_get(request)
+    order_obj = None
+    #se o carrinho acabou de ser criado, ele tá zerado
+    #ou se o carrinho já existir mas não tiver nada dentro
+    if cart_created or cart_obj.products.count() == 0:
+        return redirect("cart:home")
+
+    #aqui a order associada ao carrinho
+    else:
+        order_obj, new_order_obj = Order.objects.get_or_create(cart = cart_obj)
+    user = request.user
+    billing_profile = None
+    login_form = LoginForm()
+    guest_form = GuestForm()
+    guest_email_id = request.session.get('guest_email_id')
+
+    if user.is_authenticated:
+        billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user = user, email = user.email)
+    elif guest_email_id is not None:
+        guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
+        billing_profile, billing_guest_profile_created = BillingProfile.objects.get_or_create(
+                                        email=guest_email_obj.email)
+    else:
+        pass
+    if billing_profile is not None:
+        order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
+    context = {
+        "object": order_obj,
+        "billing_profile": billing_profile,
+        "login_form ": login_form ,
+        "guest_form": guest_form
+    }
+    return render(request, "carts/checkout.html", context)
 >>>>>>> cart_model

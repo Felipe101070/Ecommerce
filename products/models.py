@@ -2,7 +2,7 @@
 from django.db.models import Q
 from unicodedata import category
 from django.db import models
-from .utils import unique_slug_generator
+from E_commerce.utils import unique_slug_generator
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
@@ -50,6 +50,7 @@ class Product(models.Model): #product_category
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=100.00)
     image       = models.ImageField(upload_to = 'products/', null = True, blank = True)
     featured    = models.BooleanField(default = False)
+    quantity_bought = models.IntegerField(default=0)
     active      = models.BooleanField(default = True)
     timestamp   = models.DateTimeField(auto_now_add = True)
     
